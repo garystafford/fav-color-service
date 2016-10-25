@@ -14,7 +14,7 @@ To clone and run the Favorite Color service locally. Requires MongoDB is pre-ins
 git clone https://github.com/garystafford/fav-color-service.git
 cd fav-color-service
 ./gradlew clean build && \
-    java -jar build/libs/fav-color-0.0.1-SNAPSHOT.jar
+    java -jar build/libs/fav-color-0.1.0.jar
 ```
 
 ## Service Endpoints
