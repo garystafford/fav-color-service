@@ -5,7 +5,7 @@ import java.util.List;
 
 final class ColorList {
 
-    public static List<String> colors = Arrays.asList(
+    static List<String> colors = Arrays.asList(
             "green",
             "red",
             "yellow",
@@ -17,7 +17,7 @@ final class ColorList {
             "black"
     );
 
-    public static List<String> getColors() {
+    static List<String> getColors() {
         return colors;
     }
 }

@@ -12,6 +12,11 @@ logging:
 server:
   port: 8091
 
+info:
+    java:
+      source: ${java.version}
+      target: ${java.version}
+
 ---
 
 spring:
