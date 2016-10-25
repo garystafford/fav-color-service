@@ -8,7 +8,7 @@ Simple Spring Boot RESTful microservice, backed by MongoDB, part of an upcoming 
 
 ## Quick Start
 
-To clone and run the Favorite Color service locally. Requires MongoDB pre-installed and running on 27017.
+To clone and run the Favorite Color service locally. Requires MongoDB is pre-installed and running on `27017`.
 
 ```bash
 git clone https://github.com/garystafford/fav-color-service.git
@@ -18,7 +18,7 @@ cd fav-color-service
 ```
 
 ## Service Endpoints
-Out of the box, the service runs on localhost, port 8091. By default, the service looks for MongoDB on localhost, port 27017.
+Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
 - Purge Data and Add Sample Data: <http://localhost:8091/seeder>
 - List Color Choices: <http://localhost:8091/colors>
