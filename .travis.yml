@@ -9,7 +9,7 @@ before_deploy:
 before_script:
   - sleep 15
 script:
-  - ./gradlew clean cleanTest build
+  - ./gradlew clean cleanTest build --console=rich
   - sh ./deploy_travisci.sh
 env:
   global:

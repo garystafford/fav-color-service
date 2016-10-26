@@ -23,19 +23,7 @@ public class ColorController {
 
     @Autowired
     private ColorRepository colorRepository;
-
-//    @RequestMapping(value = "/colors/{color}", method = RequestMethod.POST)
-//    public ResponseEntity<Color> setColor(@PathVariable(value = "color") String color) {
-//        List<String> colorList = ColorList.getColors();
-//        color = color.toLowerCase().trim();
-//        if (!colorList.contains(color)) { // return 400 wrong choice
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-//        Color newColor = new Color(color);
-//        colorRepository.save(newColor);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(newColor); // return 201 without payload
-//    }
-
+    
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getColors() {
         List<String> results = ColorList.getColors();
