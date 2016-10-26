@@ -1,12 +1,12 @@
 package com.example.color;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,17 +17,13 @@ import java.util.List;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @RestController
-@Component
 public class ColorController {
 
-    private final MongoTemplate mongoTemplate;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
-    private final ColorRepository colorRepository;
-
-    public ColorController(MongoTemplate mongoTemplate, ColorRepository colorRepository) {
-        this.mongoTemplate = mongoTemplate;
-        this.colorRepository = colorRepository;
-    }
+    @Autowired
+    private ColorRepository colorRepository;
 
     @RequestMapping(value = "/colors", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getColors() {
@@ -91,6 +87,5 @@ public class ColorController {
         colorRepository.save(colorSeedData);
         return ResponseEntity.status(HttpStatus.OK).body(null); // return 200 without payload
     }
-
 }
 
