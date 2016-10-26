@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@RestClientTest(ColorController.class)
 public class ColorControllerTest {
 
     @Autowired
@@ -29,50 +28,43 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getColorsReturnsColorList() throws Exception {
-        String expectedColorList = "[\"green\",\"red\",\"yellow\",\"blue\",\"orange\",\"purple\",\"gray\",\"white\",\"black\"]";
-        ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/colors", String.class);
-        assertThat(responseEntity.getStatusCode().is2xxSuccessful());
+    public void getColorsReturnsListOfColorChoices() throws Exception {
+        String expectedColorList = "[\"Green\",\"Red\",\"Yellow\",\"Blue\",\"Orange\",\"Purple\",\"Gray\",\"White\",\"Black\"]";
+        ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/choices", String.class);
+        assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(responseEntity.getBody()).isEqualTo(expectedColorList);
 
     }
 
     @Test
-    public void setColorValidChoiceReturnsColor() throws Exception {
-        String expectedColor = "blue";
-        ResponseEntity<Color> responseEntity = this.restTemplate.getForEntity("/colors/" + expectedColor, Color.class);
-        assertThat(responseEntity.getStatusCode().is2xxSuccessful());
+    public void setColorReturnsNewColor() throws Exception {
+        String expectedColor = "Blue";
+        Color color = new Color(expectedColor);
+        ResponseEntity<Color> responseEntity = this.restTemplate.postForEntity("/colors", color, Color.class);
+        assertThat(responseEntity.getStatusCode().value() == 201);
         assertThat(responseEntity.getBody().getColor()).isEqualTo(expectedColor);
     }
 
     @Test
-    public void setColorInvalidChoiceThrowsException() throws Exception {
-        String badColorChoice = "foo";
-        ResponseEntity<Color> responseEntity = this.restTemplate.getForEntity("/colors/" + badColorChoice, Color.class);
-        assertThat(responseEntity.getStatusCode().is4xxClientError());
-        assertThat(responseEntity.getBody()).isNull();
-    }
-
-    @Test
-    public void getCountsReturnsListOfColorCounts() throws Exception {
-        String expectedColor = "black";
+    public void getCountsReturnsColorCounts() throws Exception {
+        String expectedColor = "Black";
         int expectedCount = 5;
         ParameterizedTypeReference<List<ColorCount>> typeRef = new ParameterizedTypeReference<List<ColorCount>>() {
         };
         ResponseEntity<List<ColorCount>> responseEntity = this.restTemplate.exchange("/results", HttpMethod.GET, null, typeRef);
         ColorCount colorCount = responseEntity.getBody().get(0);
-        assertThat(responseEntity.getStatusCode().is2xxSuccessful());
+        assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getColor()).isEqualTo(expectedColor);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
     }
 
     @Test
-    public void getFavoriteReturnsColorCountWithMaxCount() throws Exception {
-        String expectedColor = "purple";
+    public void getFavoriteReturnsMaxCountColor() throws Exception {
+        String expectedColor = "Purple";
         int expectedCount = 12;
-        ResponseEntity<ColorCount> responseEntity = this.restTemplate.getForEntity("/results/favorite", ColorCount.class);
+        ResponseEntity<ColorCount> responseEntity = this.restTemplate.getForEntity("/favorite", ColorCount.class);
         ColorCount colorCount = responseEntity.getBody();
-        assertThat(responseEntity.getStatusCode().is2xxSuccessful());
+        assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getColor()).isEqualTo(expectedColor);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
     }

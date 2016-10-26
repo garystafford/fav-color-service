@@ -19,14 +19,25 @@ cd fav-color-service
     java -jar build/libs/fav-color-0.1.0.jar
 ```
 
-## Service Endpoints
+## Primary Service Endpoints
 Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
-- Purge and Add New Sample Data: <http://localhost:8091/seeder>
-- List Color Choices: <http://localhost:8091/colors>
-- Submit a Favorite Color: <http://localhost:8091/colors/color_choice>
-- View Summary of Results: <http://localhost:8091/results>
-- View Favorite Color: <http://localhost:8091/results/favorite>
-- Service Health:<http://localhost:8091/health>
-- Service Metrics:<http://localhost:8091/metrics>
+- Purge and Add New Sample Data (GET): <http://localhost:8091/seeder>
+- List Color Choices (GET): <http://localhost:8091/colors>
+- Submit Favorite Color (POST): <http://localhost:8091/colors>
+- View Results Summary (GET): <http://localhost:8091/results>
+- View Favorite Color (GET): <http://localhost:8091/favorite>
+- Service Health (GET): <http://localhost:8091/health>
+- Service Metrics (GET): <http://localhost:8091/metrics>
 - Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints: `/mappings`, `/env`, `/configprops`, etc...
+- Other HATEOAS `/colors` endpoints include DELETE, PUT, etc. See HATEOAS responses
+
+## POST Color Choice:
+- HTTPie: `http POST localhost:8091/colors color=blue`
+- cURL: `curl -X POST -H "Content-Type: application/json" -d '{ "color": "blue" }' "http://localhost:8091/colors"`
+- wget: `wget --method POST --header 'content-type: application/json' --body-data '{ "color": "blue" }' --output-document - http://localhost:8091/colors`
+
+## README
+- [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
+- [Spring Boot Testing](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
+-

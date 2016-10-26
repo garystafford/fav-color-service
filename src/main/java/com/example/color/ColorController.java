@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,24 +24,23 @@ public class ColorController {
     @Autowired
     private ColorRepository colorRepository;
 
-    @RequestMapping(value = "/colors", method = RequestMethod.GET)
+//    @RequestMapping(value = "/colors/{color}", method = RequestMethod.POST)
+//    public ResponseEntity<Color> setColor(@PathVariable(value = "color") String color) {
+//        List<String> colorList = ColorList.getColors();
+//        color = color.toLowerCase().trim();
+//        if (!colorList.contains(color)) { // return 400 wrong choice
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+//        }
+//        Color newColor = new Color(color);
+//        colorRepository.save(newColor);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newColor); // return 201 without payload
+//    }
+
+    @RequestMapping(value = "/choices", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getColors() {
         List<String> results = ColorList.getColors();
         return ResponseEntity.status(HttpStatus.OK).body(results); // return 200 with payload
     }
-
-    @RequestMapping(value = "/colors/{color}", method = RequestMethod.GET)
-    public ResponseEntity<Color> setColor(@PathVariable(value = "color") String color) {
-        List<String> colorList = ColorList.getColors();
-        color = color.toLowerCase().trim();
-        if (!colorList.contains(color)) { // return 400 wrong choice
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        Color newColor = new Color(color);
-        colorRepository.save(newColor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newColor); // return 201 without payload
-    }
-
 
     @RequestMapping(value = "/results", method = RequestMethod.GET)
     public ResponseEntity<List<ColorCount>> getCounts() {
@@ -62,7 +60,7 @@ public class ColorController {
 
     }
 
-    @RequestMapping(value = "/results/favorite", method = RequestMethod.GET)
+    @RequestMapping(value = "/favorite", method = RequestMethod.GET)
     public ResponseEntity<ColorCount> getFavorite() {
 
         Aggregation aggregation = Aggregation.newAggregation(

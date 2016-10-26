@@ -6,15 +6,15 @@ import java.util.List;
 final class ColorList {
 
     static List<String> colors = Arrays.asList(
-            "green",
-            "red",
-            "yellow",
-            "blue",
-            "orange",
-            "purple",
-            "gray",
-            "white",
-            "black"
+            "Green",
+            "Red",
+            "Yellow",
+            "Blue",
+            "Orange",
+            "Purple",
+            "Gray",
+            "White",
+            "Black"
     );
 
     static List<String> getColors() {
