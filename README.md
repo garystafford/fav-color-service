@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/garystafford/fav-color-service.svg?branch=master)](https://travis-ci.org/garystafford/fav-color-service)
+
 # Favorite Color Service
 
 _Work in Progress_
