@@ -20,7 +20,7 @@ info:
 ---
 
 spring:
-  profiles: production
+  profiles: aws-production
   data:
     mongodb:
       host: 10.0.1.6
@@ -28,4 +28,4 @@ spring:
 logging:
   file: fav-color-service.log
   level:
-    root: INFO
+    root: WARN
