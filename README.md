@@ -29,8 +29,8 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 - View Favorite Color (GET): <http://localhost:8091/favorite>
 - Service Health (GET): <http://localhost:8091/health>
 - Service Metrics (GET): <http://localhost:8091/metrics>
-- Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints: `/mappings`, `/env`, `/configprops`, etc...
-- Other HATEOAS `/colors` endpoints include DELETE, PUT, etc. See HATEOAS responses
+- Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints include: `/mappings`, `/env`, `/configprops`, etc.
+- Other [HATEOAS](https://spring.io/guides/gs/rest-hateoas) endpoints for `/colors` include: DELETE, PATCH, PUT, page sort, size, etc.
 
 ## POST Color Choice:
 - HTTPie: `http POST localhost:8091/colors color=blue`
@@ -40,4 +40,3 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 ## README
 - [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
 - [Spring Boot Testing](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
--
