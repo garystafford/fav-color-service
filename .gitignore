@@ -98,4 +98,4 @@ gradle-app.setting
 
 *.tfstate*
 
-.DS_Store
+**.DS_Store**
