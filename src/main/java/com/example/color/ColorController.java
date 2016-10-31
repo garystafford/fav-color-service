@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
@@ -23,11 +26,14 @@ public class ColorController {
 
     @Autowired
     private ColorRepository colorRepository;
-    
+
+    @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
-    public ResponseEntity<List<String>> getColors() {
+    public ResponseEntity<Map<String, List<String>>> getColors() {
         List<String> results = ColorList.getColors();
-        return ResponseEntity.status(HttpStatus.OK).body(results); // return 200 with payload
+        return new ResponseEntity<>(Collections.singletonMap("choices", results), HttpStatus.OK);
+
+//        return ResponseEntity.status(HttpStatus.OK).body(results); // return 200 with payload
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.GET)

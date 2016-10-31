@@ -29,7 +29,7 @@ public class ColorControllerTest {
 
     @Test
     public void getColorsReturnsListOfColorChoices() throws Exception {
-        String expectedColorList = "[\"Green\",\"Red\",\"Yellow\",\"Blue\",\"Orange\",\"Purple\",\"Gray\",\"White\",\"Black\"]";
+        String expectedColorList = "{\"choices\":[\"Black\",\"Blue\",\"Gray\",\"Orange\",\"Purple\",\"Red\",\"White\",\"Yellow\"]}";
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/choices", String.class);
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(responseEntity.getBody()).isEqualTo(expectedColorList);

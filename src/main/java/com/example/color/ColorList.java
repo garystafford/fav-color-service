@@ -1,6 +1,7 @@
 package com.example.color;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 final class ColorList {
@@ -18,6 +19,8 @@ final class ColorList {
     );
 
     static List<String> getColors() {
-        return colors;
+        List<String> colorSorted = colors.subList(1, colors.size());
+        Collections.sort(colorSorted);
+        return colorSorted;
     }
 }
