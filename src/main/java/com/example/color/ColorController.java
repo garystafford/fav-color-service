@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,17 +26,14 @@ public class ColorController {
     @Autowired
     private ColorRepository colorRepository;
 
-    @CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<String>>> getColors() {
         List<String> results = ColorList.getColors();
         return new ResponseEntity<>(Collections.singletonMap("choices", results), HttpStatus.OK);
-
-//        return ResponseEntity.status(HttpStatus.OK).body(results); // return 200 with payload
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.GET)
-    public ResponseEntity<List<ColorCount>> getCounts() {
+    public ResponseEntity<Map<String, List<ColorCount>>> getResults() {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.group("color").count().as("count"),
@@ -45,13 +41,10 @@ public class ColorController {
                 sort(Sort.Direction.ASC, "color")
         );
 
-        // convert the aggregation result into a List
         AggregationResults<ColorCount> groupResults
                 = mongoTemplate.aggregate(aggregation, Color.class, ColorCount.class);
         List<ColorCount> results = groupResults.getMappedResults();
-
-        return ResponseEntity.status(HttpStatus.OK).body(results); // return 200 with payload
-
+        return new ResponseEntity<>(Collections.singletonMap("results", results), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
