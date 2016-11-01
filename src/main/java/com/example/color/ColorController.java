@@ -27,7 +27,7 @@ public class ColorController {
     private ColorRepository colorRepository;
 
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<String>>> getColors() {
+    public ResponseEntity<Map<String, List<String>>> getChoices() {
         List<String> results = ColorList.getColors();
         return new ResponseEntity<>(Collections.singletonMap("choices", results), HttpStatus.OK);
     }

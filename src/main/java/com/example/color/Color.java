@@ -14,6 +14,7 @@ class Color {
     private String color;
 
     Color() {
+        // unused constructor
     }
 
     Color(String color) {
