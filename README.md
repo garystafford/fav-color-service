@@ -6,11 +6,11 @@ _Work in Progress_
 
 ## Introduction
 
-Simple Spring Boot RESTful microservice, backed by MongoDB, part of an upcoming article on CI/CD with Spring Boot, HashiCorp product-line, and AWS.
+A simple Spring Boot RESTful microservice, backed by MongoDB. Part of an upcoming article on CI/CD with Spring Boot, HashiCorp product-line, and AWS.
 
 ## Quick Start
 
-To clone, build, test, and run the Favorite Color service locally. Requires MongoDB to be pre-installed and running on port `27017`.
+To clone, build, test, and run the Favorite Color Spring Boot service locally, requires MongoDB to be pre-installed and running on port `27017`.
 
 ```bash
 git clone https://github.com/garystafford/fav-color-service.git
