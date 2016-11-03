@@ -1,16 +1,16 @@
 language: java
 jdk: oraclejdk8
 services:
-  - mongodb
+- mongodb
 before_install:
-  - chmod +x gradlew
+- chmod +x gradlew
 before_deploy:
-  - chmod ugo+x deploy_travisci.sh
+- chmod ugo+x deploy_travisci.sh
 before_script:
-  - sleep 15
+- sleep 15
 script:
-  - ./gradlew clean cleanTest build --console=rich
-  - sh ./deploy_travisci.sh
+- "./gradlew clean cleanTest build --console=rich"
+- sh ./deploy_travisci.sh
 env:
   global:
   - GH_COLOR_ARTIFACT_REPO: github.com/garystafford/fav-color-artifacts.git
@@ -18,4 +18,4 @@ env:
   - secure: Xem6SlXSp92WC3et6MXBpoWVolmGda8GAoiAv9Dh8laVH+Ybc0bmJqrymczp93VdpVhRw9rN9gOdQlZVwQSX8FcFPPSopIyMPLx80nDmknRGr5VER5csWrw/FfRP7X78K06MsGJU6D6Itc5mqtWCfFMXxSkR1v1mnXvHkDoMTFmFRFgNV+y0YX5PoweRL+Zc7zHFkYPw37SpmwWpp2TT9JFUkSZHeBNgLcHVhFynrsIgjY9IJeuGkrqAkO7aEv+nW0On7Mvxzjh5BcL0eOOB1xUpiBycFunQxGbKSdhcqHwxF53i5NA2idZ5NxaCV43lnsOpueo8rnwg+P6GU+Vt1NM7zZT34C4zUogm42tskDBQ4jjkkrXyYiL7ibwMYc+OJOovwKgMtJrHLJ3XpF1srCibRMi+Aa6Bl7bUqe7ooij+znqtA88QnYs10MSciWm2wukFGzZ1uTa4Eb2t8ktk7U4ewAUmW7tU/5H8Z2Ebwk5flps7QmqNo7QQkafhbYZK4A2iqEUV4SoBlgeNV9rLG0i4YEiY/B2I544zlGhl5biLepXrnLn4Ti4r3hQ6KgcyqnTd1YXfLV8JfJmUJWO5XevuHSnmpWtZVpnjaUgOGmCL0gNyIPZTwJahkHMDnMTBzhZ5BeHe+DHhePCWxjdNwrDhGtR8/EDvvZp9JKLLcRY=
 notifications:
   slack:
-    secure: lQ9wlH21js1OMwStoDjMjPc/G1zdfE0UdbiR1kVunJ4FIowlLW6JHdU1186Jz8ouXoyzXhpT3NMj617QLm4alznBW0ndreieS9sybjhJS1gMNtLKJR9O2LXAwCWH+tQkXGDVOLygSvR/2Xlom+lFHr5Xg/IgWcGB3CO2pIIML3dOCojUstwKhoYSoxO8LpMFsZtXD+qpKeHTbVF7QSRXb3ghIYC15MNOs508z8Ed7vip5iNn/itUzSPsH1thBY2f80Fq4bh6WvQhvo2SsaUa01lw+btMbXA2FCQ3jAhZZG1SauuWXpEhgQ3IfOuWJRuDXY/kX+Q+dYjGqIH9qTT25svGEeMnUykfW3m1UrPe2G+9tJ9nyfWNxePlm4gWlzZhGha04UxVwBi+5DqiiS231ztDMQ/mWwp2Z6kUAgu97Om5lRov3zDXyI03vKCmiCTJx7NVLOiiWIqNqLth/ALfcdjtnHnwIH6bP+u26EmtHt5WjTP+PFbqIsFcLLtEQRlsFhUPhJY/2xO+jQrt0prYB0LC8hO9jDct9VIgju3D2y2BenecewV/GrHMVjhXxYbsW1gNAckZ34ZFUkfMRJegpCt81/vhhkrgJPmBespONROrcPI2ILSJTAXbUuwRIZ8Dcrnmg8/P/MbNsAIxrY4jH7RHV1JWM7/aoFaLsCUpj00=
+    secure: hxZrMzvSdGcdZdEbY4KqDj9ybzAehgkEZy9YX5espOXjRlWcQG4Di8BMK0QGaD3cNxY/7hxX4sCle9o/X77YsThrwYkDDeuZ2t5vtZ+EpA85zadhDLwIwLCjE5UB1oEgoWQUqmRwu4th5vSyZql+Oc3Co+kMwdgWRmCKp8xV/VOflTF2IDgUwzCLDyq8ptQgjSdiE0k16JgX22wZHgD8Y7betI7peqVfealH/7DuC2DV3nufbSQstiTkBfH2TIIVMFcva713GDJe+byE5or2mrRAfLpLYQ21Ycw7TsQqF8qUnZm5ItfxZOKheCsFap3/bR0SBBMw1c4+THY7I04Kc+RaQ3++Eh6+AT/DSJeJwPHQvZitNpH6cNcHX4INy/2jPeGE2aD4DCseC+qsXYA0CL907K7DMCwEeIEiLWf4RM07kaRXCFaYPvmHYgy08dVRWhUiRvMziG2UYJX6VKKberZ7VlmxvSm/YvZAblRqQjVNfGaJme9J/IIYclsUkImbIgXRDCImH5OeS3uhMFCI61GkM+OBXO0BtPaAwRXYhp9Q3uM3kt5R12awdZtBGKMGnM+UDr0I4+RNa45sTsdSULF650LW9Xle8xh9/TMcb9cfVfFTGPJICUOfFNuW/eT08aoY2MmC915QZvnHwtfnCqRg0iYrg4H4EH/ZRp4OVT4=

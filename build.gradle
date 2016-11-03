@@ -25,10 +25,17 @@ springBoot {
     buildInfo()
 }
 
+def application_name = 'fav-color'
+
+def major = '0.2'
+def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
+def artifact_version = major + '.' + minor
+
 jar {
-    baseName = 'fav-color'
-    version = '0.1.0'
+    baseName = application_name
+    version = artifact_version
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
