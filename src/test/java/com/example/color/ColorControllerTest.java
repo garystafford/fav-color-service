@@ -62,7 +62,7 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getCountsReturnsExpectedColorCounts() throws Exception {
+    public void getCountsReturnsListOfExpectedColorCounts() throws Exception {
         String expectedColor = "Black";
         int expectedCount = 5;
         ParameterizedTypeReference<Map<String, List<ColorCount>>> typeRef =
