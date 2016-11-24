@@ -2,28 +2,29 @@
 
 # Favorite Color Service
 
-_Work in Progress_
-
 ## Introduction
 
-A simple Spring Boot RESTful microservice, backed by MongoDB. Part of an upcoming article on CI/CD with Spring Boot, HashiCorp product-line, and AWS.
+A sample Spring Boot RESTful API microservice, backed by MongoDB. The Favorite Color service exposes several HTTP endpoints, 
+listed below. Calling those endpoints, end-users can review color choices, submit a favorite color, view all the results, and view the favorite. 
+End-users can also create random data for simulations.
 
 ## Quick Start
 
-To clone, build, test, and run the Favorite Color Spring Boot service locally, requires MongoDB to be pre-installed and running on port `27017`.
+The Favorite Color service requires MongoDB to be pre-installed and running locally, on port `27017`. 
+To clone, build, test, and run the service, locally:
 
 ```bash
 git clone https://github.com/garystafford/fav-color-service.git
 cd fav-color-service
-./gradlew clean cleanTest build && \
-    java -jar build/libs/fav-color-0.1.0.jar
+./gradlew clean cleanTest build
+java -jar build/libs/fav-color-0.1.0.jar
 ```
 
 ## Primary Service Endpoints
 Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
-- Purge and Add New Sample Data (GET): <http://localhost:8091/seeder>
-- List Color Choices (GET): <http://localhost:8091/colors>
+- Create Random Sample Data (GET): <http://localhost:8091/simulation>
+- List Color Choices (GET): <http://localhost:8091/choices>
 - Submit Favorite Color (POST): <http://localhost:8091/colors>
 - View Results Summary (GET): <http://localhost:8091/results>
 - View Favorite Color (GET): <http://localhost:8091/favorite>
@@ -33,10 +34,124 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 - Other [HATEOAS](https://spring.io/guides/gs/rest-hateoas) endpoints for `/colors` include: DELETE, PATCH, PUT, page sort, size, etc.
 
 ## POST Color Choice:
-- HTTPie: `http POST localhost:8091/colors color=blue`
-- cURL: `curl -X POST -H "Content-Type: application/json" -d '{ "color": "blue" }' "http://localhost:8091/colors"`
-- wget: `wget --method POST --header 'content-type: application/json' --body-data '{ "color": "blue" }' --output-document - http://localhost:8091/colors`
+
+HTTPie
+
+```text
+http POST localhost:8091/colors color="Blue"
+```
+
+cURL
+
+```text
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{ "color": "Blue" }' \
+  "http://localhost:8091/colors"
+```
+
+wget
+
+```text
+wget --method POST \
+  --header 'content-type: application/json' \
+  --body-data '{ "color": "Blue" }' \
+  --no-verbose \
+  --output-document - http://localhost:8091/colors
+```
+
+## Sample Output
+
+Using [HTTPie](https://httpie.org/) command line HTTP client.
+
+`http http://localhost:8091/choices`
+
+```json
+{
+    "choices": [
+        "Black",
+        "Blue",
+        "Gray",
+        "Green",
+        "Orange",
+        "Purple",
+        "Red",
+        "White",
+        "Yellow"
+    ]
+}
+```
+
+`http http://localhost:8091/results`
+
+```json
+{
+    "results": [
+        {
+            "color": "Black",
+            "count": 5
+        },
+        {
+            "color": "Blue",
+            "count": 14
+        },
+        {
+            "color": "Gray",
+            "count": 4
+        },
+        {
+            "color": "Green",
+            "count": 8
+        },
+        {
+            "color": "Orange",
+            "count": 11
+        },
+        abridged...
+    ]
+}
+```
+
+`http http://localhost:8091/favorite`
+
+```json
+{
+    "color": "Blue",
+    "count": 14
+}
+```
+
+`http POST http://localhost:8091/colors color="Green"`
+
+```json
+{
+    "_links": {
+        "color": {
+            "href": "http://localhost:8091/colors/583670914bbe424aa52396c7"
+        },
+        "self": {
+            "href": "http://localhost:8091/colors/583670914bbe424aa52396c7"
+        }
+    },
+    "color": "Green"
+}
+```
+
+## Build Artifact
+The project's source code is continuously built and tested on every code check-in to GitHub. 
+If all unit tests pass, the resulting Spring Boot JAR is stored in the `master` branch of the 
+[fav-color-artifacts](https://github.com/garystafford/fav-color-artifacts) GitHub repository. 
+The JAR file's name is incremented with each successful build.
+
+![Continuous Integration Pipeline](CI.png)
+
+## Spring Profiles
+
+The service has three Spring Profiles, located here: `src/main/resources/application.yml`. 
+They are `default` (`localhost`), `aws-production`, and `docker-production`.
 
 ## README
+
 - [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
 - [Spring Boot Testing](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
+- [Installing Spring Boot applications](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html#deployment-install)
