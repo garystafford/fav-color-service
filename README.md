@@ -106,8 +106,7 @@ Using [HTTPie](https://httpie.org/) command line HTTP client.
         {
             "color": "Orange",
             "count": 11
-        },
-        abridged...
+        }
     ]
 }
 ```
