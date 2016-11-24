@@ -4,20 +4,20 @@
 
 ## Introduction
 
-A sample Spring Boot RESTful API microservice, backed by MongoDB. The Favorite Color service exposes several HTTP endpoints, 
-listed below. Calling those endpoints, end-users can review color choices, submit a favorite color, view all the results, and view the favorite. 
+A sample Spring Boot RESTful API microservice, backed by MongoDB. The Favorite Color service exposes several HTTP endpoints,
+listed below. Calling those endpoints, end-users can review color choices, submit a favorite color, view all the results, and view the favorite.
 End-users can also create random data for simulations.
 
 ## Quick Start
 
-The Favorite Color service requires MongoDB to be pre-installed and running locally, on port `27017`. 
+The Favorite Color service requires MongoDB to be pre-installed and running locally, on port `27017`.
 To clone, build, test, and run the service, locally:
 
 ```bash
 git clone https://github.com/garystafford/fav-color-service.git
 cd fav-color-service
 ./gradlew clean cleanTest build
-java -jar build/libs/fav-color-0.1.0.jar
+java -jar build/libs/fav-color-0.2.0.jar
 ```
 
 ## Primary Service Endpoints
@@ -137,16 +137,16 @@ Using [HTTPie](https://httpie.org/) command line HTTP client.
 ```
 
 ## Build Artifact
-The project's source code is continuously built and tested on every code check-in to GitHub. 
-If all unit tests pass, the resulting Spring Boot JAR is stored in the `master` branch of the 
-[fav-color-artifacts](https://github.com/garystafford/fav-color-artifacts) GitHub repository. 
+The project's source code is continuously built and tested on every code check-in to GitHub.
+If all unit tests pass, the resulting Spring Boot JAR is stored in the `master` branch of the
+[fav-color-artifacts](https://github.com/garystafford/fav-color-artifacts) GitHub repository.
 The JAR file's name is incremented with each successful build.
 
 ![Continuous Integration Pipeline](CI.png)
 
 ## Spring Profiles
 
-The service has three Spring Profiles, located here: `src/main/resources/application.yml`. 
+The service has three Spring Profiles, located here: `src/main/resources/application.yml`.
 They are `default` (`localhost`), `aws-production`, and `docker-production`.
 
 ## README

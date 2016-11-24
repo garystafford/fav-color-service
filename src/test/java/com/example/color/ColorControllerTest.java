@@ -45,7 +45,8 @@ public class ColorControllerTest {
     public void getColorsReturnsListOfAllColorChoices() throws Exception {
         String expectedColorList =
                 "{\"choices\":[\"Black\",\"Blue\",\"Gray\",\"Green\",\"Orange\",\"Purple\",\"Red\",\"White\",\"Yellow\"]}";
-        ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/choices", String.class);
+        ResponseEntity<String> responseEntity =
+                this.restTemplate.getForEntity("/choices", String.class);
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(responseEntity.getBody()).isEqualTo(expectedColorList);
 
@@ -89,6 +90,16 @@ public class ColorControllerTest {
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getColor()).isEqualTo(expectedColor);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
+    }
+
+    @Test
+    public void getSimulationReturnsExpectedMessage() throws Exception {
+        String expectedResponse =
+                "{\"message\":\"simulation data created\"}";
+        ResponseEntity<String> responseEntity =
+                this.restTemplate.getForEntity("/simulation", String.class);
+        assertThat(responseEntity.getStatusCode().value() == 200);
+        assertThat(responseEntity.getBody()).isEqualTo(expectedResponse);
     }
 
 }
