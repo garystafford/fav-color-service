@@ -26,6 +26,17 @@ spring:
       host: 10.0.1.6
 
 logging:
-  file: fav-color-service.log
+  level:
+    root: WARN
+
+---
+
+spring:
+  profiles: docker-production
+  data:
+    mongodb:
+      host: mongodb
+
+logging:
   level:
     root: WARN

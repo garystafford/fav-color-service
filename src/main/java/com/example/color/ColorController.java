@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,13 +65,24 @@ public class ColorController {
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }
 
-    @RequestMapping(value = "/seeder", method = RequestMethod.GET)
-    public ResponseEntity<List<Color>> seedSampleData() {
+    @RequestMapping(value = "/simulation", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, String>> seedData() {
 
         colorRepository.deleteAll();
-        List<Color> colorSeedData = ColorSeedData.getColors();
-        colorRepository.save(colorSeedData);
-        return ResponseEntity.status(HttpStatus.OK).body(null); // return 200 without payload
+        ColorSeedData colorSeedData = new ColorSeedData();
+        colorSeedData.setRandomColors();
+        colorRepository.save(colorSeedData.getColors());
+        Map<String, String> result = new HashMap<>();
+        result.put("message", "simulation data created");
+        return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
+    }
+
+    // used by unit tests to create a known data set
+    public void seedData(Map candidates) {
+
+        colorRepository.deleteAll();
+        ColorSeedData colorSeedData = new ColorSeedData();
+        colorSeedData.colorsFromMap(candidates);
+        colorRepository.save(colorSeedData.getColors());
     }
 }
-

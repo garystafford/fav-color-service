@@ -22,15 +22,29 @@ public class ColorControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private ColorController colorController;
+
     @Before
     public void setup() {
-        this.restTemplate.getForEntity("/seeder", String.class);
+        // sample test data
+        Map choices = new HashMap();
+        choices.put("Red", "3");
+        choices.put("Yellow", "2");
+        choices.put("Blue", "14");
+        choices.put("Green", "8");
+        choices.put("Orange", "11");
+        choices.put("Purple", "5");
+        choices.put("Black", "5");
+        choices.put("White", "1");
+        choices.put("Gray", "4");
+        colorController.seedData(choices);
     }
 
     @Test
-    public void getColorsReturnsListOfColorChoices() throws Exception {
+    public void getColorsReturnsListOfAllColorChoices() throws Exception {
         String expectedColorList =
-                "{\"choices\":[\"Black\",\"Blue\",\"Gray\",\"Orange\",\"Purple\",\"Red\",\"White\",\"Yellow\"]}";
+                "{\"choices\":[\"Black\",\"Blue\",\"Gray\",\"Green\",\"Orange\",\"Purple\",\"Red\",\"White\",\"Yellow\"]}";
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/choices", String.class);
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(responseEntity.getBody()).isEqualTo(expectedColorList);
@@ -38,8 +52,8 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void setColorReturnsNewColor() throws Exception {
-        String expectedColor = "Blue";
+    public void postColorReturnsNewColor() throws Exception {
+        String expectedColor = "Test";
         Color color = new Color(expectedColor);
         ResponseEntity<Color> responseEntity =
                 this.restTemplate.postForEntity("/colors", color, Color.class);
@@ -48,7 +62,7 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getCountsReturnsColorCounts() throws Exception {
+    public void getCountsReturnsExpectedColorCounts() throws Exception {
         String expectedColor = "Black";
         int expectedCount = 5;
         ParameterizedTypeReference<Map<String, List<ColorCount>>> typeRef =
@@ -66,9 +80,9 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getFavoriteReturnsMaxCountColor() throws Exception {
-        String expectedColor = "Purple";
-        int expectedCount = 12;
+    public void getFavoriteReturnsColorWithHighestCount() throws Exception {
+        String expectedColor = "Blue";
+        int expectedCount = 14;
         ResponseEntity<ColorCount> responseEntity =
                 this.restTemplate.getForEntity("/favorite", ColorCount.class);
         ColorCount colorCount = responseEntity.getBody();

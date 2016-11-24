@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-final class ColorList {
+public final class ColorList {
 
-    static List<String> colors = Arrays.asList(
+    private static List<String> colors = Arrays.asList(
             "Green",
             "Red",
             "Yellow",
@@ -18,8 +18,8 @@ final class ColorList {
             "Black"
     );
 
-    static List<String> getColors() {
-        List<String> colorSorted = colors.subList(1, colors.size());
+    public static List<String> getColors() {
+        List<String> colorSorted = colors.subList(0, colors.size());
         Collections.sort(colorSorted);
         return colorSorted;
     }
