@@ -30,7 +30,7 @@ public class ColorSeedData {
         Map colors = new HashMap();
         List<String> colorList = ColorList.getColors();
         for (int i = 0; i < colorList.size(); i++) {
-            colors.put(colorList.get(i), getRandomIntAsString(5, 15));
+            colors.put(colorList.get(i), getRandomIntAsString(2, 15));
         }
         colorsFromMap(colors);
     }
