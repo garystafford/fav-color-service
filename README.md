@@ -33,7 +33,7 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 - Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints include: `/mappings`, `/env`, `/configprops`, etc.
 - Other [HATEOAS](https://spring.io/guides/gs/rest-hateoas) endpoints for `/colors` include: DELETE, PATCH, PUT, page sort, size, etc.
 
-## POST Color Choice:
+## POST Color Choice
 
 HTTPie
 
