@@ -78,11 +78,11 @@ public class ColorController {
     }
 
     // used by unit tests to create a known data set
-    public void seedData(Map candidates) {
+    public void seedData(Map colorList) {
 
         colorRepository.deleteAll();
         ColorSeedData colorSeedData = new ColorSeedData();
-        colorSeedData.colorsFromMap(candidates);
+        colorSeedData.colorsFromMap(colorList);
         colorRepository.save(colorSeedData.getColors());
     }
 }
