@@ -1,17 +1,19 @@
 [![Build Status](https://travis-ci.org/garystafford/fav-color-service.svg?branch=master)](https://travis-ci.org/garystafford/fav-color-service)
 
-# Favorite Color Service
+# Favorite Color μService
 
 ## Introduction
 
-A sample Spring Boot RESTful API microservice, backed by MongoDB. The Favorite Color service exposes several HTTP endpoints,
-listed below. Calling those endpoints, end-users can review color choices, submit a favorite color, view all the results, and view the favorite.
-End-users can also create random data for simulations.
+The Favorite Color Spring Boot μService is part of a multi-tier, Angular-Node-Spring-MongoDB sample application platform. The [Favorite Color Web Application](https://github.com/garystafford/fav-color-ngweb) makes RESTful API calls to the Favorite Color μService, via the Node-based [Web BFF](https://github.com/garystafford/fav-color-bff). The Favorite Color Service is backed by MongoDB.
+
+The Favorite Color μService exposes several HTTP endpoints, listed below. Calling those endpoints, end-users can review color choices, submit a favorite color, view all the results, and view the favorite. End-users can also create random data for simulations.
+
+The entire sample application platform is designed to be provisioned and deployed to AWS, using HashiCorp Packer and Terraform. The web application and BFF are designed to sit in the public subnet behind a load balancer, while the μService(s) and database(s) sit in the private subnet, also behind an internal load balancer.
 
 ## Quick Start
 
-The Favorite Color service requires MongoDB to be pre-installed and running locally, on port `27017`.
-To clone, build, test, and run the service, locally:
+The Favorite Color μService requires MongoDB to be pre-installed and running locally, on port `27017`.
+To clone, build, test, and run the service:
 
 ```bash
 git clone https://github.com/garystafford/fav-color-service.git
@@ -20,7 +22,7 @@ cd fav-color-service
 java -jar build/libs/fav-color-0.2.0.jar
 ```
 
-## Primary Service Endpoints
+## Service Endpoints
 Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
 - Create Random Sample Data (GET): <http://localhost:8091/simulation>
