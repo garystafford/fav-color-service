@@ -22,6 +22,8 @@ cd fav-color-service
 java -jar build/libs/fav-color-0.2.0.jar
 ```
 
+![Local Architecture](local-bff.png)
+
 ## Service Endpoints
 Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
