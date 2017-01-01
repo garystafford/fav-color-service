@@ -65,6 +65,23 @@ public class ColorController {
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }
 
+    @RequestMapping(value = "/favorite/count", method = RequestMethod.GET)
+    public ResponseEntity<ColorCountFavorite> getFavoriteCount() {
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.group("color").count().as("count"),
+                project("count"),
+                sort(Sort.Direction.DESC, "count"),
+                limit(1)
+        );
+
+        AggregationResults<ColorCountFavorite> groupResults =
+                mongoTemplate.aggregate(aggregation, Color.class, ColorCountFavorite.class);
+        ColorCountFavorite result = groupResults.getMappedResults().get(0);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
+    }
+
     @RequestMapping(value = "/simulation", method = RequestMethod.GET)
     public ResponseEntity<Map<String, String>> seedData() {
 
