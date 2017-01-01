@@ -32,6 +32,7 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 - Submit Favorite Color (POST): <http://localhost:8091/colors>
 - View Results Summary (GET): <http://localhost:8091/results>
 - View Favorite Color (GET): <http://localhost:8091/favorite>
+- View Favorite Color Vote Count (GET): <http://localhost:8091/favorite/count>
 - Service Health (GET): <http://localhost:8091/health>
 - Service Metrics (GET): <http://localhost:8091/metrics>
 - Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints include: `/mappings`, `/env`, `/configprops`, etc.
@@ -115,11 +116,10 @@ Using [HTTPie](https://httpie.org/) command line HTTP client.
 }
 ```
 
-`http http://localhost:8091/favorite`
+`http http://localhost:8091/favorite/count`
 
 ```json
 {
-    "color": "Blue",
     "count": 14
 }
 ```

@@ -81,7 +81,7 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getFavoriteReturnsColorWithHighestCount() throws Exception {
+    public void getFavoriteReturnsFirstColorAlphabeticallyWithHighestCount() throws Exception {
         String expectedColor = "Blue";
         int expectedCount = 14;
         ResponseEntity<ColorCount> responseEntity =
@@ -89,6 +89,16 @@ public class ColorControllerTest {
         ColorCount colorCount = responseEntity.getBody();
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getColor()).isEqualTo(expectedColor);
+        assertThat(colorCount.getCount()).isEqualTo(expectedCount);
+    }
+
+    @Test
+    public void getFavoriteCountReturnsHighestCount() throws Exception {
+        int expectedCount = 14;
+        ResponseEntity<ColorCountFavorite> responseEntity =
+                this.restTemplate.getForEntity("/favorite/count", ColorCountFavorite.class);
+        ColorCountFavorite colorCount = responseEntity.getBody();
+        assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
     }
 
