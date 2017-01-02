@@ -63,7 +63,7 @@ public class ColorControllerTest {
     }
 
     @Test
-    public void getCountsReturnsListOfExpectedColorCounts() throws Exception {
+    public void getResultsReturnsListOfExpectedColorCounts() throws Exception {
         String expectedColor = "Black";
         int expectedCount = 5;
         ParameterizedTypeReference<Map<String, List<ColorCount>>> typeRef =
@@ -77,6 +77,16 @@ public class ColorControllerTest {
         ColorCount colorCount = (ColorCount) colorCountArray.get(0);
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getColor()).isEqualTo(expectedColor);
+        assertThat(colorCount.getCount()).isEqualTo(expectedCount);
+    }
+
+    @Test
+    public void getResultsCountReturnsSumOfCounts() throws Exception {
+        int expectedCount = 53;
+        ResponseEntity<ColorCountFavorite> responseEntity =
+                this.restTemplate.getForEntity("/results/count", ColorCountFavorite.class);
+        ColorCountFavorite colorCount = responseEntity.getBody();
+        assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
     }
 
