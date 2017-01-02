@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class ColorController {
     @RequestMapping(value = "/choices", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<String>>> getChoices() {
         List<String> results = ColorList.getColors();
+
         return new ResponseEntity<>(Collections.singletonMap("choices", results), HttpStatus.OK);
     }
 
@@ -46,7 +48,21 @@ public class ColorController {
         AggregationResults<ColorCount> groupResults
                 = mongoTemplate.aggregate(aggregation, Color.class, ColorCount.class);
         List<ColorCount> results = groupResults.getMappedResults();
+
         return new ResponseEntity<>(Collections.singletonMap("results", results), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/results/count", method = RequestMethod.GET)
+    public ResponseEntity<ColorCountFavorite> getResultsCount() {
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("color").exists(true));
+
+        Long groupResults =
+                mongoTemplate.count(query, Color.class);
+        ColorCountFavorite result = new ColorCountFavorite(groupResults.intValue());
+
+        return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }
 
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
@@ -62,6 +78,7 @@ public class ColorController {
         AggregationResults<ColorCount> groupResults
                 = mongoTemplate.aggregate(aggregation, Color.class, ColorCount.class);
         List<ColorCount> results = groupResults.getMappedResults();
+
         return new ResponseEntity<>(Collections.singletonMap("results", results), HttpStatus.OK);
     }
 
@@ -107,6 +124,7 @@ public class ColorController {
         colorRepository.save(colorSeedData.getColors());
         Map<String, String> result = new HashMap<>();
         result.put("message", "simulation data created");
+
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }
 
