@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,20 +50,19 @@ public class ColorController {
     }
 
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
-    public ResponseEntity<ColorCount> getFavorite() {
+    public ResponseEntity<Map<String, List<ColorCount>>> getFavorite() {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.group("color").count().as("count"),
+                match(Criteria.where("count").is(getFavoriteCountInt())),
                 project("count").and("color").previousOperation(),
-                sort(Sort.Direction.DESC, "count"),
-                limit(1)
+                sort(Sort.Direction.DESC, "color")
         );
 
-        AggregationResults<ColorCount> groupResults =
-                mongoTemplate.aggregate(aggregation, Color.class, ColorCount.class);
-        ColorCount result = groupResults.getMappedResults().get(0);
-
-        return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
+        AggregationResults<ColorCount> groupResults
+                = mongoTemplate.aggregate(aggregation, Color.class, ColorCount.class);
+        List<ColorCount> results = groupResults.getMappedResults();
+        return new ResponseEntity<>(Collections.singletonMap("results", results), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/favorite/count", method = RequestMethod.GET)
@@ -80,6 +80,22 @@ public class ColorController {
         ColorCountFavorite result = groupResults.getMappedResults().get(0);
 
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
+    }
+
+    private int getFavoriteCountInt() {
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.group("color").count().as("count"),
+                project("count"),
+                sort(Sort.Direction.DESC, "count"),
+                limit(1)
+        );
+
+        AggregationResults<ColorCountFavorite> groupResults =
+                mongoTemplate.aggregate(aggregation, Color.class, ColorCountFavorite.class);
+        int result = groupResults.getMappedResults().get(0).getCount();
+
+        return result;
     }
 
     @RequestMapping(value = "/simulation", method = RequestMethod.GET)
