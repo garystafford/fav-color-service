@@ -163,9 +163,9 @@ The project's source code is continuously built and tested on every code check-i
 
 ## Spring Profiles
 
-The service has (3) Spring Profiles, located here, `src/main/resources/application.yml`. They are `default` (`localhost`), `aws-production`, and `docker-production`.
+The service has (3) Spring Profiles, located here, `src/main/resources/application.yml`. They are `default` (`localhost`), `aws-production`, and `docker-production`. If you are using the Favorite Color service with the `aws-production` profile, you will need to substitute your own MongoDB hostname or IP address.
 
-```json
+```yaml
 spring:
   data:
     mongodb:
@@ -180,13 +180,18 @@ logging:
 server:
   port: 8091
 
+info:
+    java:
+      source: ${java.version}
+      target: ${java.version}
+
 ---
 
 spring:
   profiles: aws-production
   data:
     mongodb:
-      host: 10.0.1.6
+      host: db.fav-color.com
 
 logging:
   level:
@@ -202,7 +207,7 @@ spring:
 
 logging:
   level:
-    root: INFO
+    root: WARN
 ```
 
 ## README
