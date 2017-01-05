@@ -25,14 +25,16 @@ java -jar build/libs/fav-color-0.2.0.jar
 
 ## Service Endpoints
 
-Out of the box, the service runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
+By default, the Favorite Color μService runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
 - Create Random Sample Data (GET): <http://localhost:8091/simulation>
 - List Color Choices (GET): <http://localhost:8091/choices>
 - Submit Favorite Color (POST): <http://localhost:8091/colors>
 - View Results Summary (GET): <http://localhost:8091/results>
-- View Favorite Color (GET): <http://localhost:8091/favorite>
+- View Total Votes (GET): <http://localhost:8099/results/count>
+- View Favorite Color(s) (GET): <http://localhost:8091/favorite>
 - View Favorite Color Vote Count (GET): <http://localhost:8091/favorite/count>
+- Service Info (GET): <http://localhost:8091/hinfo>
 - Service Health (GET): <http://localhost:8091/health>
 - Service Metrics (GET): <http://localhost:8091/metrics>
 - Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints include: `/mappings`, `/env`, `/configprops`, etc.
@@ -40,7 +42,9 @@ Out of the box, the service runs on `localhost`, port `8091`. By default, the se
 
 Note the `/favorite` endpoint returns the first color, alphabetically, with the most votes, even in the event of a tie.
 
-## POST Color Choice
+## Voting for a Favorite Color
+
+Submitting a favorite color, requires an `HTTP POST` to the `/colors` endpoint, as follows:
 
 HTTPie
 
@@ -159,10 +163,51 @@ The project's source code is continuously built and tested on every code check-i
 
 ## Spring Profiles
 
-The service has three Spring Profiles, located here: `src/main/resources/application.yml`. They are `default` (`localhost`), `aws-production`, and `docker-production`.
+The service has (3) Spring Profiles, located here, `src/main/resources/application.yml`. They are `default` (`localhost`), `aws-production`, and `docker-production`.
+
+```json
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: colors
+
+logging:
+  level:
+    root: INFO
+
+server:
+  port: 8091
+
+---
+
+spring:
+  profiles: aws-production
+  data:
+    mongodb:
+      host: 10.0.1.6
+
+logging:
+  level:
+    root: WARN
+
+---
+
+spring:
+  profiles: docker-production
+  data:
+    mongodb:
+      host: mongodb
+
+logging:
+  level:
+    root: INFO
+```
 
 ## README
 
+- [Spring Data MongoDB - Reference Documentation](http://docs.spring.io/spring-data/mongodb/docs/current/reference/html/)
 - [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
 - [Spring Boot Testing](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
 - [Installing Spring Boot applications](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html#deployment-install)

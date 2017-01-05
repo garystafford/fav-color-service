@@ -23,11 +23,11 @@ spring:
   profiles: aws-production
   data:
     mongodb:
-      host: 10.0.1.6
+      host: db.fav-color.com
 
 logging:
   level:
-    root: WARN
+    root: INFO
 
 ---
 

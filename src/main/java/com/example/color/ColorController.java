@@ -42,7 +42,7 @@ public class ColorController {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.group("color").count().as("count"),
                 project("count").and("color").previousOperation(),
-                sort(Sort.Direction.ASC, "color")
+                sort(Sort.Direction.DESC, "count")
         );
 
         AggregationResults<ColorCount> groupResults
@@ -123,7 +123,7 @@ public class ColorController {
         colorSeedData.setRandomColors();
         colorRepository.save(colorSeedData.getColors());
         Map<String, String> result = new HashMap<>();
-        result.put("message", "simulation data created");
+        result.put("message", "random simulation data created");
 
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }

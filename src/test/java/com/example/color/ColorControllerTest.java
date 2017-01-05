@@ -64,8 +64,8 @@ public class ColorControllerTest {
 
     @Test
     public void getResultsReturnsListOfExpectedColorCounts() throws Exception {
-        String expectedColor = "Black";
-        int expectedCount = 5;
+        String expectedColor = "Blue";
+        int expectedCount = 14;
         ParameterizedTypeReference<Map<String, List<ColorCount>>> typeRef =
                 new ParameterizedTypeReference<Map<String, List<ColorCount>>>() {
                 };
@@ -121,7 +121,7 @@ public class ColorControllerTest {
     @Test
     public void getSimulationReturnsExpectedMessage() throws Exception {
         String expectedResponse =
-                "{\"message\":\"simulation data created\"}";
+                "{\"message\":\"random simulation data created\"}";
         ResponseEntity<String> responseEntity =
                 this.restTemplate.getForEntity("/simulation", String.class);
         assertThat(responseEntity.getStatusCode().value() == 200);
