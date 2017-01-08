@@ -1,42 +1,64 @@
-spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: colors
-
-logging:
-  level:
-    root: INFO
-
 server:
   port: 8091
-
+data:
+  mongodb:
+    host: localhost
+    port: 27017
+    database: colors
+logging:
+  level:
+    root: INFO
 info:
-    java:
-      source: ${java.version}
-      target: ${java.version}
-
+  java:
+    source: ${java.version}
+    target: ${java.version}
+management:
+  info:
+    git:
+      mode: full
+    build:
+      enabled: true
+endpoints:
+  sensitive: true
 ---
-
 spring:
   profiles: aws-production
-  data:
-    mongodb:
-      host: db.fav-color.com
-
+data:
+  mongodb:
+    host: db.fav-color.com
 logging:
   level:
     root: INFO
-
+management:
+  info:
+    git:
+      enabled: false
+    build:
+      enabled: false
+endpoints:
+  enabled: false
+  info:
+    enabled: true
+  health:
+    enabled: true
 ---
-
 spring:
   profiles: docker-production
-  data:
-    mongodb:
-      host: mongodb
-
+data:
+  mongodb:
+    host: mongodb
 logging:
   level:
     root: INFO
+management:
+  info:
+    git:
+      enabled: false
+    build:
+      enabled: false
+endpoints:
+  enabled: false
+  info:
+    enabled: true
+  health:
+    enabled: true

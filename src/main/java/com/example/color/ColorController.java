@@ -65,7 +65,7 @@ public class ColorController {
         return ResponseEntity.status(HttpStatus.OK).body(result); // return 200 with payload
     }
 
-    @RequestMapping(value = "/favorite", method = RequestMethod.GET)
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<ColorCount>>> getFavorite() {
 
         Aggregation aggregation = Aggregation.newAggregation(
@@ -82,7 +82,7 @@ public class ColorController {
         return new ResponseEntity<>(Collections.singletonMap("results", results), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/favorite/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/favorites/count", method = RequestMethod.GET)
     public ResponseEntity<ColorCountFavorite> getFavoriteCount() {
 
         ColorCountFavorite result = new ColorCountFavorite(getFavoriteCountInt());

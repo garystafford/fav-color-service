@@ -27,18 +27,20 @@ java -jar build/libs/fav-color-0.2.0.jar
 
 By default, the Favorite Color μService runs on `localhost`, port `8091`. By default, the service looks for MongoDB on `localhost`, port `27017`.
 
-- Create Random Sample Data (GET): <http://localhost:8091/simulation>
-- List Color Choices (GET): <http://localhost:8091/choices>
-- Submit Favorite Color (POST): <http://localhost:8091/colors>
-- View Results Summary (GET): <http://localhost:8091/results>
-- View Total Votes (GET): <http://localhost:8099/results/count>
-- View Favorite Color(s) (GET): <http://localhost:8091/favorite>
-- View Favorite Color Vote Count (GET): <http://localhost:8091/favorite/count>
-- Service Info (GET): <http://localhost:8091/hinfo>
-- Service Health (GET): <http://localhost:8091/health>
-- Service Metrics (GET): <http://localhost:8091/metrics>
-- Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints include: `/mappings`, `/env`, `/configprops`, etc.
-- Other [HATEOAS](https://spring.io/guides/gs/rest-hateoas) endpoints for `/colors` include: DELETE, PATCH, PUT, page sort, size, etc.
+Purpose                                                                                                                  | Method  | Endpoint
+------------------------------------------------------------------------------------------------------------------------ | :------ | :----------------------------------------------------
+Create Random Sample Data                                                                                                | GET     | [/simulation](http://localhost:8099/simulation)
+Color Choices                                                                                                          | GET     | [/choices](http://localhost:8099/choices)
+Vote for Favorite Color                                                                                                              | POST    | [/colors](http://localhost:8099/colors)
+Voting Results                                                                                                        | GET     | [/results](http://localhost:8099/results)
+Total Votes                                                                                                         | GET     | [/results/count](http://localhost:8099/results/count)
+Winning Color(s)                                                                                                           | GET     | [/favorites](http://localhost:8099/favorites)
+Winning Color Votes                                                                                                  | GET     | [/favorites/count](http://localhost:8091/favorites/count)
+Service Info                                                                                                             | GET     | [/info](http://localhost:8099/info)
+Service Health                                                                                                           | GET     | [/health](http://localhost:8099/health)
+Service Metrics                                                                                                          | GET     | [/metrics](http://localhost:8099/metrics)
+Other [Spring Actuator](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints | GET     | `/actuator`, `/mappings`, `/env`, `/configprops`, etc.
+Other [HATEOAS](https://spring.io/guides/gs/rest-hateoas) endpoints for `/candidates`                                         | Various | DELETE, PATCH, PUT, page sort, size, etc.
 
 Note the `/favorite` endpoint returns the first color, alphabetically, with the most votes, even in the event of a tie.
 
@@ -122,7 +124,15 @@ Using [HTTPie](https://httpie.org/) command line HTTP client.
 }
 ```
 
-`http http://localhost:8091/favorite`
+`http http://localhost:8091/results/count`
+
+```json
+{
+    "count": 42
+}
+```
+
+`http http://localhost:8091/favorites`
 
 ```json
 {
@@ -131,7 +141,7 @@ Using [HTTPie](https://httpie.org/) command line HTTP client.
 }
 ```
 
-`http http://localhost:8091/favorite/count`
+`http http://localhost:8091/favorites/count`
 
 ```json
 {
@@ -216,3 +226,5 @@ logging:
 - [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
 - [Spring Boot Testing](http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
 - [Installing Spring Boot applications](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html#deployment-install)
+- [Produce git.properties for spring-boot-actuator](https://plugins.gradle.org/plugin/com.gorylenko.gradle-git-properties)
+- [ASCII Text Art](http://patorjk.com/software/taag/#p=display&f=Standard)
