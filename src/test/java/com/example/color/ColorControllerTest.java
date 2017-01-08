@@ -98,7 +98,7 @@ public class ColorControllerTest {
                 new ParameterizedTypeReference<Map<String, List<ColorCount>>>() {
                 };
         ResponseEntity<Map<String, List<ColorCount>>> responseEntity =
-                this.restTemplate.exchange("/favorite", HttpMethod.GET, null, typeRef);
+                this.restTemplate.exchange("/favorites", HttpMethod.GET, null, typeRef);
         LinkedHashMap body = ((LinkedHashMap) responseEntity.getBody());
         Collection colorCountCollection = body.values();
         ArrayList colorCountArray = (ArrayList) colorCountCollection.toArray()[0];
@@ -112,7 +112,7 @@ public class ColorControllerTest {
     public void getFavoriteCountReturnsHighestCount() throws Exception {
         int expectedCount = 14;
         ResponseEntity<ColorCountFavorite> responseEntity =
-                this.restTemplate.getForEntity("/favorite/count", ColorCountFavorite.class);
+                this.restTemplate.getForEntity("/favorites/count", ColorCountFavorite.class);
         ColorCountFavorite colorCount = responseEntity.getBody();
         assertThat(responseEntity.getStatusCode().value() == 200);
         assertThat(colorCount.getCount()).isEqualTo(expectedCount);
