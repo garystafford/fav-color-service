@@ -220,7 +220,7 @@ logging:
     root: WARN
 ```
 
-## README
+## References
 
 - [Spring Data MongoDB - Reference Documentation](http://docs.spring.io/spring-data/mongodb/docs/current/reference/html/)
 - [Accessing MongoDB Data with REST](https://spring.io/guides/gs/accessing-mongodb-data-rest/)
